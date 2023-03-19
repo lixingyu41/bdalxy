@@ -1,5 +1,5 @@
 #!/bin/bash
-#获取关注列表所有人的uid
+#获取关注列表所有人的uid，只能获取50条左右，哔哩哔哩限制，也能全获取，比较麻烦，我也用不着，所以没做
 #author:lixingyu
 #author_site:https://lixingyu.top
 #传参方法举例
