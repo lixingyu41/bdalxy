@@ -9,15 +9,10 @@
 lux=tools/lux
 #上传百度云
 BaiduPCSGo=tools/BaiduPCS-Go
-#telegram机器人负责反馈下载情况
-telegramBotToken="6225011341:AAF2z33S1tC6j7pI4tAXMLcsXQnoIl922dI"
-telegramChatId="1716954377"
 #定义传入的uid
 uid=$1
 #rss负责采集视频信息
-# rssURL="http://123.249.3.63:1200/bilibili/user/video-all/214391420/:disableEmbed?"
-# rssURL="http://123.249.3.63:1200/bilibili/user/video-all/285297152/:disableEmbed?"
-rssURL="http://123.249.3.63:1200/bilibili/user/video-all/$uid/:disableEmbed?"
+rssURL="http://127.0.0.1:1200/bilibili/user/video-all/$uid/:disableEmbed?"
 #cookies.txt用来下载大会员清晰度等等
 biliCookies="/root/bdalxy/infor/"
 #下载rss推送
@@ -119,9 +114,10 @@ for ((i=0;i<${#titles_array[@]};i++)); do
             echo "download"
             ../../../tools/lux -c "$biliCookies"cookies.txt -O "$titlein" "$videoin"
         fi
-        #上传百度网盘或者rclone
-        ../../../tools/BaiduPCS-Go upload "$titlein.mp4" /bilidown/$author/
+        #上传百度网盘
+        ../../../tools/BaiduPCS-Go upload "$titlein.mp4" /bilidown/$author/ #这里的bilidown是网盘的目录，可以改，也可以放根目录
         echo "upload done"
+        #防止占用服务器空间上传完就删掉封面和视频，但是目录会保存
         echo "remove local file"
         rm $titlein.mp4
         rm poster.jpg
